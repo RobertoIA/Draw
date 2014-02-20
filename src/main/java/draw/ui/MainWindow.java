@@ -1,8 +1,13 @@
 package draw.ui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Random;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -15,6 +20,8 @@ public class MainWindow {
 
 	private PApplet canvas;
 	private JPanel canvasPanel;
+	private JPanel uiPanel;
+	private JButton changeColor;
 
 	/**
 	 * Launch the application.
@@ -56,6 +63,24 @@ public class MainWindow {
 		this.canvas = new Canvas();
 		this.canvas.frameRate = 60.0f;
 		this.canvasPanel.add(this.canvas, BorderLayout.CENTER);
+		
+		this.uiPanel = new JPanel();
+		this.frame.getContentPane().add(this.uiPanel, BorderLayout.WEST);
+		
+		this.changeColor = new JButton("Color");
+		this.changeColor.addActionListener(new ChangeColorActionListener());
+		this.uiPanel.add(this.changeColor);
 	}
 
+	private class ChangeColorActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent arg0) {
+			Random random = new Random();
+			int r = (int) (random.nextFloat() * 255);
+			int g = (int) (random.nextFloat() * 255);
+			int b = (int) (random.nextFloat() * 255);
+			
+			Color color = new Color(r, g, b);
+			((Canvas) canvas).setColor(color);
+		}
+	}
 }
