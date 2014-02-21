@@ -13,6 +13,8 @@ import javax.swing.JPanel;
 
 import processing.core.PApplet;
 import draw.main.Canvas;
+import javax.swing.BoxLayout;
+import java.awt.Component;
 
 public class MainWindow {
 
@@ -22,6 +24,7 @@ public class MainWindow {
 	private JPanel canvasPanel;
 	private JPanel uiPanel;
 	private JButton changeColor;
+	private JButton reset;
 
 	/**
 	 * Launch the application.
@@ -68,8 +71,15 @@ public class MainWindow {
 		this.frame.getContentPane().add(this.uiPanel, BorderLayout.WEST);
 		
 		this.changeColor = new JButton("Color");
+		this.changeColor.setAlignmentX(Component.CENTER_ALIGNMENT);
 		this.changeColor.addActionListener(new ChangeColorActionListener());
+		this.uiPanel.setLayout(new BoxLayout(this.uiPanel, BoxLayout.Y_AXIS));
 		this.uiPanel.add(this.changeColor);
+		
+		this.reset = new JButton("Reset");
+		this.reset.setAlignmentX(Component.CENTER_ALIGNMENT);
+		this.reset.addActionListener(new ResetActionListener());
+		this.uiPanel.add(this.reset);
 	}
 
 	private class ChangeColorActionListener implements ActionListener {
@@ -81,6 +91,11 @@ public class MainWindow {
 			
 			Color color = new Color(r, g, b);
 			((Canvas) canvas).setColor(color);
+		}
+	}
+	private class ResetActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent arg0) {
+			((Canvas) canvas).reset();
 		}
 	}
 }

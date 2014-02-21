@@ -23,4 +23,8 @@ public class Canvas extends PApplet {
 	public void setColor(Color color) {
 		this.color = color;
 	}
+	
+	public void reset() {
+		background(255);
+	}
 }
