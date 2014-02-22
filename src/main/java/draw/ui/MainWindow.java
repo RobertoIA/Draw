@@ -15,6 +15,10 @@ import processing.core.PApplet;
 import draw.main.Canvas;
 import javax.swing.BoxLayout;
 import java.awt.Component;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
+import javax.swing.SwingConstants;
 
 public class MainWindow {
 
@@ -25,6 +29,7 @@ public class MainWindow {
 	private JPanel uiPanel;
 	private JButton changeColor;
 	private JButton reset;
+	private JSlider widthSlider;
 
 	/**
 	 * Launch the application.
@@ -66,20 +71,32 @@ public class MainWindow {
 		this.canvas = new Canvas();
 		this.canvas.frameRate = 60.0f;
 		this.canvasPanel.add(this.canvas, BorderLayout.CENTER);
-		
+
 		this.uiPanel = new JPanel();
 		this.frame.getContentPane().add(this.uiPanel, BorderLayout.WEST);
-		
+
 		this.changeColor = new JButton("Color");
 		this.changeColor.setAlignmentX(Component.CENTER_ALIGNMENT);
 		this.changeColor.addActionListener(new ChangeColorActionListener());
 		this.uiPanel.setLayout(new BoxLayout(this.uiPanel, BoxLayout.Y_AXIS));
 		this.uiPanel.add(this.changeColor);
-		
+
 		this.reset = new JButton("Reset");
 		this.reset.setAlignmentX(Component.CENTER_ALIGNMENT);
 		this.reset.addActionListener(new ResetActionListener());
 		this.uiPanel.add(this.reset);
+
+		this.widthSlider = new JSlider();
+		this.widthSlider.setOrientation(SwingConstants.VERTICAL);
+		this.widthSlider.setToolTipText("Width");
+		this.widthSlider.setPaintTicks(true);
+		this.widthSlider.setSnapToTicks(true);
+		this.widthSlider.setMajorTickSpacing(1);
+		this.widthSlider.addChangeListener(new SliderChangeListener());
+		this.widthSlider.setValue(1);
+		this.widthSlider.setMaximum(10);
+		this.widthSlider.setMinimum(1);
+		this.uiPanel.add(this.widthSlider);
 	}
 
 	private class ChangeColorActionListener implements ActionListener {
@@ -88,14 +105,21 @@ public class MainWindow {
 			int r = (int) (random.nextFloat() * 255);
 			int g = (int) (random.nextFloat() * 255);
 			int b = (int) (random.nextFloat() * 255);
-			
+
 			Color color = new Color(r, g, b);
 			((Canvas) canvas).setColor(color);
 		}
 	}
+
 	private class ResetActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
 			((Canvas) canvas).reset();
+		}
+	}
+
+	private class SliderChangeListener implements ChangeListener {
+		public void stateChanged(ChangeEvent arg0) {
+			((Canvas) canvas).setWidth(widthSlider.getValue());
 		}
 	}
 }
