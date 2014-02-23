@@ -27,9 +27,11 @@ public class MainWindow {
 	private PApplet canvas;
 	private JPanel canvasPanel;
 	private JPanel uiPanel;
-	private JButton changeColor;
 	private JButton reset;
 	private JSlider widthSlider;
+	private JSlider rSlider;
+	private JSlider bSlider;
+	private JSlider gSlider;
 
 	/**
 	 * Launch the application.
@@ -74,17 +76,25 @@ public class MainWindow {
 
 		this.uiPanel = new JPanel();
 		this.frame.getContentPane().add(this.uiPanel, BorderLayout.WEST);
-
-		this.changeColor = new JButton("Color");
-		this.changeColor.setAlignmentX(Component.CENTER_ALIGNMENT);
-		this.changeColor.addActionListener(new ChangeColorActionListener());
 		this.uiPanel.setLayout(new BoxLayout(this.uiPanel, BoxLayout.Y_AXIS));
-		this.uiPanel.add(this.changeColor);
 
-		this.reset = new JButton("Reset");
-		this.reset.setAlignmentX(Component.CENTER_ALIGNMENT);
-		this.reset.addActionListener(new ResetActionListener());
-		this.uiPanel.add(this.reset);
+		this.rSlider = new JSlider();
+		this.rSlider.setValue(0);
+		this.rSlider.setMaximum(255);
+		this.rSlider.addChangeListener(new ColorChangeListener());
+		this.uiPanel.add(this.rSlider);
+
+		this.gSlider = new JSlider();
+		this.gSlider.setValue(0);
+		this.gSlider.setMaximum(255);
+		this.gSlider.addChangeListener(new ColorChangeListener());
+		this.uiPanel.add(this.gSlider);
+
+		this.bSlider = new JSlider();
+		this.bSlider.setValue(0);
+		this.bSlider.setMaximum(255);
+		this.bSlider.addChangeListener(new ColorChangeListener());
+		this.uiPanel.add(this.bSlider);
 
 		this.widthSlider = new JSlider();
 		this.widthSlider.setOrientation(SwingConstants.VERTICAL);
@@ -93,22 +103,15 @@ public class MainWindow {
 		this.widthSlider.setSnapToTicks(true);
 		this.widthSlider.setMajorTickSpacing(1);
 		this.widthSlider.addChangeListener(new SliderChangeListener());
+
+		this.reset = new JButton("Reset");
+		this.reset.setAlignmentX(Component.CENTER_ALIGNMENT);
+		this.reset.addActionListener(new ResetActionListener());
+		this.uiPanel.add(this.reset);
 		this.widthSlider.setValue(1);
 		this.widthSlider.setMaximum(10);
 		this.widthSlider.setMinimum(1);
 		this.uiPanel.add(this.widthSlider);
-	}
-
-	private class ChangeColorActionListener implements ActionListener {
-		public void actionPerformed(ActionEvent arg0) {
-			Random random = new Random();
-			int r = (int) (random.nextFloat() * 255);
-			int g = (int) (random.nextFloat() * 255);
-			int b = (int) (random.nextFloat() * 255);
-
-			Color color = new Color(r, g, b);
-			((Canvas) canvas).setColor(color);
-		}
 	}
 
 	private class ResetActionListener implements ActionListener {
@@ -120,6 +123,14 @@ public class MainWindow {
 	private class SliderChangeListener implements ChangeListener {
 		public void stateChanged(ChangeEvent arg0) {
 			((Canvas) canvas).setWidth(widthSlider.getValue());
+		}
+	}
+
+	private class ColorChangeListener implements ChangeListener {
+		public void stateChanged(ChangeEvent arg0) {
+			Color color = new Color(rSlider.getValue(), gSlider.getValue(),
+					bSlider.getValue());
+			((Canvas) canvas).setColor(color);
 		}
 	}
 }
