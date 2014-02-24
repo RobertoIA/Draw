@@ -2,23 +2,23 @@ package draw.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Random;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import processing.core.PApplet;
 import draw.main.Canvas;
-import javax.swing.BoxLayout;
-import java.awt.Component;
-import javax.swing.JSlider;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ChangeEvent;
-import javax.swing.SwingConstants;
 
 public class MainWindow {
 
@@ -32,6 +32,7 @@ public class MainWindow {
 	private JSlider rSlider;
 	private JSlider bSlider;
 	private JSlider gSlider;
+	private JTextField colorPreview;
 
 	/**
 	 * Launch the application.
@@ -107,6 +108,13 @@ public class MainWindow {
 		this.reset = new JButton("Reset");
 		this.reset.setAlignmentX(Component.CENTER_ALIGNMENT);
 		this.reset.addActionListener(new ResetActionListener());
+
+		this.colorPreview = new JTextField();
+		this.colorPreview.setBackground(Color.BLACK);
+		this.colorPreview.setEnabled(false);
+		this.colorPreview.setEditable(false);
+		this.uiPanel.add(this.colorPreview);
+		this.colorPreview.setColumns(10);
 		this.uiPanel.add(this.reset);
 		this.widthSlider.setValue(1);
 		this.widthSlider.setMaximum(10);
@@ -131,6 +139,7 @@ public class MainWindow {
 			Color color = new Color(rSlider.getValue(), gSlider.getValue(),
 					bSlider.getValue());
 			((Canvas) canvas).setColor(color);
+			colorPreview.setBackground(color);
 		}
 	}
 }
