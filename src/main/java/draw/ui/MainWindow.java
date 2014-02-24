@@ -13,7 +13,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -33,6 +32,9 @@ public class MainWindow {
 	private JSlider bSlider;
 	private JSlider gSlider;
 	private JTextField colorPreview;
+	private JPanel colorsPanel;
+	private JPanel controlsPanel;
+	private JPanel containerPanel;
 
 	/**
 	 * Launch the application.
@@ -63,7 +65,7 @@ public class MainWindow {
 	 */
 	private void initialize() {
 		this.frame = new JFrame();
-		this.frame.setBounds(100, 100, 450, 300);
+		this.frame.setBounds(100, 100, 615, 475);
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.frame.getContentPane().setLayout(new BorderLayout(0, 0));
 
@@ -77,49 +79,58 @@ public class MainWindow {
 
 		this.uiPanel = new JPanel();
 		this.frame.getContentPane().add(this.uiPanel, BorderLayout.WEST);
-		this.uiPanel.setLayout(new BoxLayout(this.uiPanel, BoxLayout.Y_AXIS));
+		this.uiPanel.setLayout(new BorderLayout(0, 0));
+
+		this.containerPanel = new JPanel();
+		this.uiPanel.add(this.containerPanel, BorderLayout.NORTH);
+		this.containerPanel.setLayout(new BorderLayout(0, 0));
+
+		this.colorsPanel = new JPanel();
+		this.containerPanel.add(this.colorsPanel, BorderLayout.NORTH);
+		this.colorsPanel.setLayout(new BoxLayout(this.colorsPanel,
+				BoxLayout.Y_AXIS));
 
 		this.rSlider = new JSlider();
+		this.colorsPanel.add(this.rSlider);
 		this.rSlider.setValue(0);
 		this.rSlider.setMaximum(255);
-		this.rSlider.addChangeListener(new ColorChangeListener());
-		this.uiPanel.add(this.rSlider);
 
 		this.gSlider = new JSlider();
+		this.colorsPanel.add(this.gSlider);
 		this.gSlider.setValue(0);
 		this.gSlider.setMaximum(255);
-		this.gSlider.addChangeListener(new ColorChangeListener());
-		this.uiPanel.add(this.gSlider);
 
 		this.bSlider = new JSlider();
+		this.colorsPanel.add(this.bSlider);
 		this.bSlider.setValue(0);
 		this.bSlider.setMaximum(255);
-		this.bSlider.addChangeListener(new ColorChangeListener());
-		this.uiPanel.add(this.bSlider);
-
-		this.widthSlider = new JSlider();
-		this.widthSlider.setOrientation(SwingConstants.VERTICAL);
-		this.widthSlider.setToolTipText("Width");
-		this.widthSlider.setPaintTicks(true);
-		this.widthSlider.setSnapToTicks(true);
-		this.widthSlider.setMajorTickSpacing(1);
-		this.widthSlider.addChangeListener(new SliderChangeListener());
-
-		this.reset = new JButton("Reset");
-		this.reset.setAlignmentX(Component.CENTER_ALIGNMENT);
-		this.reset.addActionListener(new ResetActionListener());
 
 		this.colorPreview = new JTextField();
+		this.colorsPanel.add(this.colorPreview);
 		this.colorPreview.setBackground(Color.BLACK);
 		this.colorPreview.setEnabled(false);
 		this.colorPreview.setEditable(false);
-		this.uiPanel.add(this.colorPreview);
 		this.colorPreview.setColumns(10);
-		this.uiPanel.add(this.reset);
+
+		this.controlsPanel = new JPanel();
+		this.containerPanel.add(this.controlsPanel, BorderLayout.SOUTH);
+
+		this.reset = new JButton("Reset");
+		this.controlsPanel.add(this.reset);
+		this.reset.setAlignmentX(Component.CENTER_ALIGNMENT);
+		this.reset.addActionListener(new ResetActionListener());
+
+		this.widthSlider = new JSlider();
+		this.controlsPanel.add(this.widthSlider);
+		this.widthSlider.setToolTipText("Width");
+		this.widthSlider.setMajorTickSpacing(1);
+		this.widthSlider.addChangeListener(new SliderChangeListener());
 		this.widthSlider.setValue(1);
 		this.widthSlider.setMaximum(10);
 		this.widthSlider.setMinimum(1);
-		this.uiPanel.add(this.widthSlider);
+		this.bSlider.addChangeListener(new ColorChangeListener());
+		this.gSlider.addChangeListener(new ColorChangeListener());
+		this.rSlider.addChangeListener(new ColorChangeListener());
 	}
 
 	private class ResetActionListener implements ActionListener {
