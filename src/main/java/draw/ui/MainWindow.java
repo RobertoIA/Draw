@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -35,6 +36,13 @@ public class MainWindow {
 	private JPanel colorsPanel;
 	private JPanel controlsPanel;
 	private JPanel containerPanel;
+	private JPanel rPanel;
+	private JPanel gPanel;
+	private JPanel bPanel;
+	private JTextField rPreview;
+	private JTextField gPreview;
+	private JTextField bPreview;
+	private JPanel panel;
 
 	/**
 	 * Launch the application.
@@ -90,23 +98,55 @@ public class MainWindow {
 		this.colorsPanel.setLayout(new BoxLayout(this.colorsPanel,
 				BoxLayout.Y_AXIS));
 
+		this.rPanel = new JPanel();
+		this.colorsPanel.add(this.rPanel);
+
+		this.rPreview = new JTextField();
+		this.rPreview.setBackground(Color.BLACK);
+		this.rPanel.add(this.rPreview);
+		this.rPreview.setColumns(10);
+
 		this.rSlider = new JSlider();
-		this.colorsPanel.add(this.rSlider);
+		this.rPanel.add(this.rSlider);
 		this.rSlider.setValue(0);
 		this.rSlider.setMaximum(255);
+		this.rSlider.addChangeListener(new ColorChangeListener());
+
+		this.gPanel = new JPanel();
+		this.colorsPanel.add(this.gPanel);
+
+		this.gPreview = new JTextField();
+		this.gPreview.setBackground(Color.BLACK);
+		this.gPanel.add(this.gPreview);
+		this.gPreview.setColumns(10);
 
 		this.gSlider = new JSlider();
-		this.colorsPanel.add(this.gSlider);
+		this.gPanel.add(this.gSlider);
 		this.gSlider.setValue(0);
 		this.gSlider.setMaximum(255);
+		this.gSlider.addChangeListener(new ColorChangeListener());
+
+		this.bPanel = new JPanel();
+		this.colorsPanel.add(this.bPanel);
+
+		this.bPreview = new JTextField();
+		this.bPreview.setBackground(Color.BLACK);
+		this.bPanel.add(this.bPreview);
+		this.bPreview.setColumns(10);
 
 		this.bSlider = new JSlider();
-		this.colorsPanel.add(this.bSlider);
+		this.bPanel.add(this.bSlider);
 		this.bSlider.setValue(0);
 		this.bSlider.setMaximum(255);
+		this.bSlider.addChangeListener(new ColorChangeListener());
+
+		this.panel = new JPanel();
+		this.colorsPanel.add(this.panel);
+		this.panel.setLayout(new BorderLayout(0, 0));
 
 		this.colorPreview = new JTextField();
-		this.colorsPanel.add(this.colorPreview);
+		this.panel.add(this.colorPreview);
+		this.colorPreview.setHorizontalAlignment(SwingConstants.LEFT);
 		this.colorPreview.setBackground(Color.BLACK);
 		this.colorPreview.setEnabled(false);
 		this.colorPreview.setEditable(false);
@@ -128,9 +168,6 @@ public class MainWindow {
 		this.widthSlider.setValue(1);
 		this.widthSlider.setMaximum(10);
 		this.widthSlider.setMinimum(1);
-		this.bSlider.addChangeListener(new ColorChangeListener());
-		this.gSlider.addChangeListener(new ColorChangeListener());
-		this.rSlider.addChangeListener(new ColorChangeListener());
 	}
 
 	private class ResetActionListener implements ActionListener {
@@ -151,6 +188,10 @@ public class MainWindow {
 					bSlider.getValue());
 			((Canvas) canvas).setColor(color);
 			colorPreview.setBackground(color);
+
+			rPreview.setBackground(new Color(rSlider.getValue(), 0, 0));
+			gPreview.setBackground(new Color(0, gSlider.getValue(), 0));
+			bPreview.setBackground(new Color(0, 0, bSlider.getValue()));
 		}
 	}
 }
