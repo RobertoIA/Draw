@@ -19,6 +19,8 @@ import javax.swing.event.ChangeListener;
 
 import processing.core.PApplet;
 import draw.main.Canvas;
+import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
 
 public class MainWindow {
 
@@ -43,6 +45,10 @@ public class MainWindow {
 	private JTextField gPreview;
 	private JTextField bPreview;
 	private JPanel panel;
+	private JPanel brushPanel;
+	private JRadioButton normalButton;
+	private JRadioButton fuzzyButton;
+	private final ButtonGroup brushGroup = new ButtonGroup();
 
 	/**
 	 * Launch the application.
@@ -73,7 +79,7 @@ public class MainWindow {
 	 */
 	private void initialize() {
 		this.frame = new JFrame();
-		this.frame.setBounds(100, 100, 615, 475);
+		this.frame.setBounds(100, 100, 846, 508);
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.frame.getContentPane().setLayout(new BorderLayout(0, 0));
 
@@ -152,6 +158,20 @@ public class MainWindow {
 		this.colorPreview.setEditable(false);
 		this.colorPreview.setColumns(10);
 
+		this.brushPanel = new JPanel();
+		this.colorsPanel.add(this.brushPanel);
+
+		this.normalButton = new JRadioButton("Normal");
+		this.normalButton.addActionListener(new BrushButtonActionListener());
+		brushGroup.add(this.normalButton);
+		this.normalButton.setSelected(true);
+		this.brushPanel.add(this.normalButton);
+
+		this.fuzzyButton = new JRadioButton("Fuzzy");
+		this.fuzzyButton.addActionListener(new BrushButtonActionListener());
+		brushGroup.add(this.fuzzyButton);
+		this.brushPanel.add(this.fuzzyButton);
+
 		this.controlsPanel = new JPanel();
 		this.containerPanel.add(this.controlsPanel, BorderLayout.SOUTH);
 
@@ -194,4 +214,15 @@ public class MainWindow {
 			bPreview.setBackground(new Color(0, 0, bSlider.getValue()));
 		}
 	}
+
+	private class BrushButtonActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent event) {
+			if (event.getSource().equals(normalButton)) {
+				((Canvas) canvas).setNormalBrush();
+			} else if (event.getSource().equals(fuzzyButton)) {
+				((Canvas) canvas).setFuzzyBrush();
+			}
+		}
+	}
+
 }

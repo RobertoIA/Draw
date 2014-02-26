@@ -14,7 +14,7 @@ public class Canvas extends PApplet {
 
 	private Color color = new Color(0, 0, 0);
 	private int width = 1;
-	private Brush brush = Brush.FUZZY;
+	private Brush brush = Brush.NORMAL;
 	private Random random = new Random();
 
 	public void setup() {
@@ -61,7 +61,7 @@ public class Canvas extends PApplet {
 	}
 
 	private void fuzzyBrush() {
-		int offset = (int) ((random.nextFloat() / 2) * width);
+		int offset = (int) ((random.nextFloat() / 2) * width * width);
 		stroke(color.getRed(), color.getGreen(), color.getBlue());
 		strokeWeight(width);
 		line(pmouseX - offset, pmouseY - offset, mouseX + offset, mouseY
