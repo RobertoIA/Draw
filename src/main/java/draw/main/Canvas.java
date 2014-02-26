@@ -64,6 +64,8 @@ public class Canvas extends PApplet {
 		int offset = (int) ((random.nextFloat() / 2) * width * width);
 		stroke(color.getRed(), color.getGreen(), color.getBlue());
 		strokeWeight(width);
+		line(pmouseX + offset, pmouseY + offset, mouseX - offset, mouseY
+				- offset);
 		line(pmouseX - offset, pmouseY - offset, mouseX + offset, mouseY
 				+ offset);
 	}
