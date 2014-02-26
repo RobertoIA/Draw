@@ -49,6 +49,7 @@ public class MainWindow {
 	private JRadioButton normalButton;
 	private JRadioButton fuzzyButton;
 	private final ButtonGroup brushGroup = new ButtonGroup();
+	private JRadioButton antsButton;
 
 	/**
 	 * Launch the application.
@@ -172,6 +173,11 @@ public class MainWindow {
 		brushGroup.add(this.fuzzyButton);
 		this.brushPanel.add(this.fuzzyButton);
 
+		this.antsButton = new JRadioButton("Line of ants");
+		this.antsButton.addActionListener(new BrushButtonActionListener());
+		brushGroup.add(this.antsButton);
+		this.brushPanel.add(this.antsButton);
+
 		this.controlsPanel = new JPanel();
 		this.containerPanel.add(this.controlsPanel, BorderLayout.SOUTH);
 
@@ -221,6 +227,8 @@ public class MainWindow {
 				((Canvas) canvas).setNormalBrush();
 			} else if (event.getSource().equals(fuzzyButton)) {
 				((Canvas) canvas).setFuzzyBrush();
+			} else if (event.getSource().equals(antsButton)) {
+				((Canvas) canvas).setAntsBrush();
 			}
 		}
 	}

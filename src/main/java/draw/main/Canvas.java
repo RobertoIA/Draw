@@ -9,7 +9,7 @@ import processing.core.PApplet;
 public class Canvas extends PApplet {
 
 	private static enum Brush {
-		NORMAL, FUZZY
+		NORMAL, FUZZY, ANTS
 	}
 
 	private Color color = new Color(0, 0, 0);
@@ -29,6 +29,9 @@ public class Canvas extends PApplet {
 				break;
 			case FUZZY:
 				fuzzyBrush();
+				break;
+			case ANTS:
+				antsBrush();
 				break;
 			}
 		}
@@ -68,5 +71,19 @@ public class Canvas extends PApplet {
 				- offset);
 		line(pmouseX - offset, pmouseY - offset, mouseX + offset, mouseY
 				+ offset);
+	}
+	
+	public void setAntsBrush() {
+		this.brush = Brush.ANTS;
+	}
+	
+	private void antsBrush() {
+		int offset = (int) ((random.nextFloat() / 2) * width * 2);
+		stroke(color.getRed(), color.getGreen(), color.getBlue());
+		strokeWeight(width);
+		line(pmouseX - offset, pmouseY + offset, mouseX - offset, mouseY
+				+ offset);
+		line(pmouseX + offset, pmouseY - offset, mouseX + offset, mouseY
+				- offset);
 	}
 }
