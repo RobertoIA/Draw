@@ -1,7 +1,6 @@
 package draw.main;
 
 import java.awt.Color;
-import java.util.Random;
 
 import processing.core.PApplet;
 
@@ -9,13 +8,12 @@ import processing.core.PApplet;
 public class Canvas extends PApplet {
 
 	private static enum Brush {
-		NORMAL, FUZZY, ANTS
+		NORMAL, ROMBUS, DOUBLE
 	}
 
 	private Color color = new Color(0, 0, 0);
 	private int width = 1;
 	private Brush brush = Brush.NORMAL;
-	private Random random = new Random();
 
 	public void setup() {
 		background(255);
@@ -27,11 +25,11 @@ public class Canvas extends PApplet {
 			case NORMAL:
 				normalBrush();
 				break;
-			case FUZZY:
-				fuzzyBrush();
+			case ROMBUS:
+				rombusBrush();
 				break;
-			case ANTS:
-				antsBrush();
+			case DOUBLE:
+				doubleBrush();
 				break;
 			}
 		}
@@ -59,31 +57,29 @@ public class Canvas extends PApplet {
 		line(pmouseX, pmouseY, mouseX, mouseY);
 	}
 
-	public void setFuzzyBrush() {
-		this.brush = Brush.FUZZY;
+	public void setRombusBrush() {
+		this.brush = Brush.ROMBUS;
 	}
 
-	private void fuzzyBrush() {
-		int offset = (int) ((random.nextFloat() / 2) * width * width);
+	private void rombusBrush() {
 		stroke(color.getRed(), color.getGreen(), color.getBlue());
-		strokeWeight(width);
-		line(pmouseX + offset, pmouseY + offset, mouseX - offset, mouseY
-				- offset);
-		line(pmouseX - offset, pmouseY - offset, mouseX + offset, mouseY
-				+ offset);
+		strokeWeight(1);
+		line(pmouseX - width, pmouseY - width, mouseX + width, mouseY
+				+ width);
+		line(pmouseX + width, pmouseY + width, mouseX - width, mouseY
+				- width);
 	}
 	
-	public void setAntsBrush() {
-		this.brush = Brush.ANTS;
+	public void setDoubleBrush() {
+		this.brush = Brush.DOUBLE;
 	}
 	
-	private void antsBrush() {
-		int offset = (int) ((random.nextFloat() / 2) * width * 2);
+	private void doubleBrush() {
 		stroke(color.getRed(), color.getGreen(), color.getBlue());
-		strokeWeight(width);
-		line(pmouseX - offset, pmouseY + offset, mouseX - offset, mouseY
-				+ offset);
-		line(pmouseX + offset, pmouseY - offset, mouseX + offset, mouseY
-				- offset);
+		strokeWeight(1);
+		line(pmouseX - width, pmouseY + width, mouseX - width, mouseY
+				+ width);
+		line(pmouseX + width, pmouseY - width, mouseX + width, mouseY
+				- width);
 	}
 }

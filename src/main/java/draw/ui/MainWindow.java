@@ -47,9 +47,9 @@ public class MainWindow {
 	private JPanel panel;
 	private JPanel brushPanel;
 	private JRadioButton normalButton;
-	private JRadioButton fuzzyButton;
+	private JRadioButton rombusButton;
 	private final ButtonGroup brushGroup = new ButtonGroup();
-	private JRadioButton antsButton;
+	private JRadioButton doubleButton;
 
 	/**
 	 * Launch the application.
@@ -168,15 +168,15 @@ public class MainWindow {
 		this.normalButton.setSelected(true);
 		this.brushPanel.add(this.normalButton);
 
-		this.fuzzyButton = new JRadioButton("Fuzzy");
-		this.fuzzyButton.addActionListener(new BrushButtonActionListener());
-		brushGroup.add(this.fuzzyButton);
-		this.brushPanel.add(this.fuzzyButton);
+		this.rombusButton = new JRadioButton("Rombus");
+		this.rombusButton.addActionListener(new BrushButtonActionListener());
+		brushGroup.add(this.rombusButton);
+		this.brushPanel.add(this.rombusButton);
 
-		this.antsButton = new JRadioButton("Line of ants");
-		this.antsButton.addActionListener(new BrushButtonActionListener());
-		brushGroup.add(this.antsButton);
-		this.brushPanel.add(this.antsButton);
+		this.doubleButton = new JRadioButton("Double");
+		this.doubleButton.addActionListener(new BrushButtonActionListener());
+		brushGroup.add(this.doubleButton);
+		this.brushPanel.add(this.doubleButton);
 
 		this.controlsPanel = new JPanel();
 		this.containerPanel.add(this.controlsPanel, BorderLayout.SOUTH);
@@ -225,10 +225,10 @@ public class MainWindow {
 		public void actionPerformed(ActionEvent event) {
 			if (event.getSource().equals(normalButton)) {
 				((Canvas) canvas).setNormalBrush();
-			} else if (event.getSource().equals(fuzzyButton)) {
-				((Canvas) canvas).setFuzzyBrush();
-			} else if (event.getSource().equals(antsButton)) {
-				((Canvas) canvas).setAntsBrush();
+			} else if (event.getSource().equals(rombusButton)) {
+				((Canvas) canvas).setRombusBrush();
+			} else if (event.getSource().equals(doubleButton)) {
+				((Canvas) canvas).setDoubleBrush();
 			}
 		}
 	}
