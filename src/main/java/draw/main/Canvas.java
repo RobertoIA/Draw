@@ -8,7 +8,7 @@ import processing.core.PApplet;
 public class Canvas extends PApplet {
 
 	private static enum Brush {
-		NORMAL, ROMBUS, DOUBLE
+		NORMAL, ROMBUS, DOUBLE, POINTS
 	}
 
 	private Color color = new Color(0, 0, 0);
@@ -30,6 +30,9 @@ public class Canvas extends PApplet {
 				break;
 			case DOUBLE:
 				doubleBrush();
+				break;
+			case POINTS:
+				pointsBrush();
 				break;
 			}
 		}
@@ -81,5 +84,15 @@ public class Canvas extends PApplet {
 				+ width);
 		line(pmouseX + width, pmouseY - width, mouseX + width, mouseY
 				- width);
+	}
+	
+	public void setPointsBrush() {
+		this.brush = Brush.POINTS;
+	}
+	
+	public void pointsBrush() {
+		stroke(color.getRed(), color.getGreen(), color.getBlue());
+		strokeWeight(width);
+		point(mouseX, mouseY);
 	}
 }

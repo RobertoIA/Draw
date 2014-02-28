@@ -50,6 +50,7 @@ public class MainWindow {
 	private JRadioButton rombusButton;
 	private final ButtonGroup brushGroup = new ButtonGroup();
 	private JRadioButton doubleButton;
+	private JRadioButton pointsButton;
 
 	/**
 	 * Launch the application.
@@ -178,6 +179,11 @@ public class MainWindow {
 		brushGroup.add(this.doubleButton);
 		this.brushPanel.add(this.doubleButton);
 
+		this.pointsButton = new JRadioButton("Points");
+		this.pointsButton.addActionListener(new BrushButtonActionListener());
+		brushGroup.add(this.pointsButton);
+		this.brushPanel.add(this.pointsButton);
+
 		this.controlsPanel = new JPanel();
 		this.containerPanel.add(this.controlsPanel, BorderLayout.SOUTH);
 
@@ -229,6 +235,8 @@ public class MainWindow {
 				((Canvas) canvas).setRombusBrush();
 			} else if (event.getSource().equals(doubleButton)) {
 				((Canvas) canvas).setDoubleBrush();
+			} else if (event.getSource().equals(pointsButton)) {
+				((Canvas) canvas).setPointsBrush();
 			}
 		}
 	}
