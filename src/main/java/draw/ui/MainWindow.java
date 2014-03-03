@@ -112,7 +112,7 @@ public class MainWindow {
 		this.rPreview = new JTextField();
 		this.rPreview.setBackground(Color.BLACK);
 		this.rPanel.add(this.rPreview);
-		this.rPreview.setColumns(10);
+		this.rPreview.setColumns(2);
 
 		this.rSlider = new JSlider();
 		this.rPanel.add(this.rSlider);
@@ -126,7 +126,7 @@ public class MainWindow {
 		this.gPreview = new JTextField();
 		this.gPreview.setBackground(Color.BLACK);
 		this.gPanel.add(this.gPreview);
-		this.gPreview.setColumns(10);
+		this.gPreview.setColumns(2);
 
 		this.gSlider = new JSlider();
 		this.gPanel.add(this.gSlider);
@@ -140,7 +140,7 @@ public class MainWindow {
 		this.bPreview = new JTextField();
 		this.bPreview.setBackground(Color.BLACK);
 		this.bPanel.add(this.bPreview);
-		this.bPreview.setColumns(10);
+		this.bPreview.setColumns(2);
 
 		this.bSlider = new JSlider();
 		this.bPanel.add(this.bSlider);
