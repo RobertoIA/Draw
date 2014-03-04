@@ -51,6 +51,7 @@ public class MainWindow {
 	private final ButtonGroup brushGroup = new ButtonGroup();
 	private JRadioButton doubleButton;
 	private JRadioButton pointsButton;
+	private JRadioButton colButton;
 
 	/**
 	 * Launch the application.
@@ -183,6 +184,11 @@ public class MainWindow {
 		this.pointsButton.addActionListener(new BrushButtonActionListener());
 		brushGroup.add(this.pointsButton);
 		this.brushPanel.add(this.pointsButton);
+		
+		this.colButton = new JRadioButton("Columns");
+		this.colButton.addActionListener(new BrushButtonActionListener());
+		brushGroup.add(this.colButton);
+		this.brushPanel.add(this.colButton);
 
 		this.controlsPanel = new JPanel();
 		this.containerPanel.add(this.controlsPanel, BorderLayout.SOUTH);
@@ -237,6 +243,8 @@ public class MainWindow {
 				((Canvas) canvas).setDoubleBrush();
 			} else if (event.getSource().equals(pointsButton)) {
 				((Canvas) canvas).setPointsBrush();
+			}else if (event.getSource().equals(colButton)) {
+				((Canvas) canvas).setColumnsBrush();
 			}
 		}
 	}
